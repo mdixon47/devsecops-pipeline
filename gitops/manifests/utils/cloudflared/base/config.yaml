@@ -20,4 +20,10 @@ ingress:
     originRequest:
       httpHostHeader: juice-shop.juice-shop.svc.cluster.local
 
+# Grafana — for monitoring dashboards. Also protected by Cloudflare Access. (Internal purpose only, not for public demo.)
+  - hostname: grafana.learndevops.site
+    service: http://kube-prometheus-grafana.monitoring.svc.cluster.local:80
+    originRequest:
+      httpHostHeader: kube-prometheus-grafana.monitoring.svc.cluster.local
+
   - service: http_status:404
