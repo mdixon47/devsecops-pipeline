@@ -28,6 +28,7 @@ prometheus:
     serviceMonitorSelector: {}
     serviceMonitorNamespaceSelector: {}
     retention: 7d
+    retentionSize: 2GB
     resources:
       requests:
         memory: 256Mi
