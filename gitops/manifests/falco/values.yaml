@@ -1,0 +1,37 @@
+# gitops/manifests/falco/values.yaml
+
+# Use kernel module driver — no BTF required
+driver:
+  kind: module        # change to "modern_ebpf" when BTF available
+  loader:
+    initContainer:
+      enabled: true   # compiles module on pod startup
+
+# Tune for Pi — reduce resource usage
+falco:
+  grpc:
+    enabled: false
+  grpc_output:
+    enabled: false
+
+  # Rules to start with — not too noisy
+  rules_file:
+    - /etc/falco/falco_rules.yaml
+    - /etc/falco/falco_rules.local.yaml
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+# Send alerts to stdout — Prometheus can scrape them
+falcosidekick:
+  enabled: false      # enable later when you want Slack/webhook alerts
+
+# Tolerations to run on all nodes
+tolerations:
+  - effect: NoSchedule
+    operator: Exists

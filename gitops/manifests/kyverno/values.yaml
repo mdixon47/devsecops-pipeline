@@ -46,7 +46,12 @@ cleanupController:
       cpu: 200m
       memory: 128Mi
 
-webhookFailurePolicy: Ignore
+# webhookFailurePolicy: Ignore
+# NOTE: This value is ignored by Kyverno 1.17+ Helm chart.
+# Actual cluster state is Fail (hardcoded by chart).
+# Verify: kubectl get validatingwebhookconfigurations
+#   kyverno-resource-validating-webhook-cfg
+#   -o jsonpath='{.webhooks[*].failurePolicy}'
 generateSuccessEvents: false
 
 config:
