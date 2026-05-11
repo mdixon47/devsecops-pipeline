@@ -14,6 +14,7 @@ deployment.
 | Scanner CLI | `sonar-scanner-cli` 7.2.0.5079 (provided by the action) |
 | JDK | Temurin 17 (`actions/setup-java@v4`) |
 | Triggered on | `push` to `main`, `pull_request` to `main` (`opened`, `synchronize`, `reopened`) |
+| Path filters | `paths-ignore: ['docs/**', '**/*.md']` on both triggers (docs-only changes skip the scan) |
 | Concurrency | `sonarqube-${{ github.ref }}`, `cancel-in-progress: true` |
 | Quality gate | `sonar.qualitygate.wait=true` (job fails if gate fails) |
 
@@ -108,3 +109,4 @@ gh run rerun <run-id> --repo mdixon47/devsecops-pipeline --failed
 |---|---|---|
 | 2026-05-10 | Initial workflow + `sonar-project.properties` added (replaced extensionless `github-sonarqube-workflow` that GitHub Actions silently ignored); action pinned to `@v5` | `b43f8db` |
 | 2026-05-10 | Bumped `sonarqube-scan-action` `@v5` → `@v6` (v5 flagged by GitHub as deprecated / containing a security vulnerability) | `2feef23` |
+| 2026-05-10 | Added `paths-ignore` (`docs/**`, `**/*.md`) on `push` and `pull_request` triggers so docs-only changes do not consume scans | `9a9c6a9` |
